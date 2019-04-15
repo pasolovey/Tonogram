@@ -13,7 +13,10 @@
             <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/primary/materialdesigncolor.blue.xaml" />
             <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/accent/materialdesigncolor.amber.xaml" />
             <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
+            
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
+       
    </Application.Resources>
+   
 </Application>

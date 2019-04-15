@@ -90,39 +90,47 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Colorizers\LineColorizer.cs" />
-    <Compile Include="Commands\InsertCommand.cs" />
+    <Compile Include="CommandSource.cs" />
+    <Compile Include="Commands\BaseToolCommand.cs" />
+    <Compile Include="Commands\HighFallCommand.cs" />
+    <Compile Include="Commands\IToolCommand.cs" />
+    <Compile Include="Commands\NonStressCommand.cs" />
+    <Compile Include="Commands\LowFallCommand.cs" />
+    <Compile Include="Commands\MidFallCommand.cs" />
+    <Compile Include="Commands\StressCommand.cs" />
+    <Compile Include="Components\CommandWindow.xaml.cs">
+      <DependentUpon>CommandWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditorView.xaml.cs">
       <DependentUpon>EditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditorVM.cs" />
-    <Compile Include="PropertyView.xaml.cs">
-      <DependentUpon>PropertyView.xaml</DependentUpon>
+    <Compile Include="Helpers\WindowActivator.cs" />
+    <Compile Include="PopupToolController.cs" />
+    <Compile Include="Trash\TestPropertyView.xaml.cs">
+      <DependentUpon>TestPropertyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShortcutKeyBindings.cs" />
-    <Page Include="EditorView.xaml">
+    <Page Include="Components\CommandWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="EditorView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainVM.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="PropertyView.xaml">
+    <Compile Include="Trash\MainVM.cs" />
+    <Page Include="Trash\TestPropertyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyMathModel.cs" />
+    <Compile Include="Trash\MyMathModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -149,6 +157,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
