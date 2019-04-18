@@ -44,15 +44,18 @@ namespace WpfText.Components
 
         public void SetCommands(IEnumerable<IToolCommand> commands)
         {
-            foreach (var item in commands)
+            foreach (var command in commands)
             {
-                var btn = new Button();
-                btn.Content = item.Name;
+                var btn = new Button
+                {
+                    Content = command.Name,
+                    ToolTip = command.Tooltip
+                };
                 int tabIndex = 0;
                 btn.Click += (s, e) =>
                 {
-                    Console.WriteLine(item.GetType());
-                    item.Execute(null);
+                    Console.WriteLine(command.GetType());
+                    command.Execute(null);
                     OnPressTool();
                 };
                 btn.Focusable = true;

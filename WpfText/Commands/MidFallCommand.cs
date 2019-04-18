@@ -13,6 +13,7 @@ namespace WpfText.Commands
         public MidFallCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Middle fall tone";
         }
 
         public override void Execute(object parameter)

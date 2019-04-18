@@ -10,6 +10,9 @@ namespace WpfText.Commands
     public abstract class BaseToolCommand : IToolCommand
     {
         public abstract string Name { get; }
+        protected object tooltip = null;
+
+        public object Tooltip => tooltip;
 
         public event EventHandler CanExecuteChanged;
 

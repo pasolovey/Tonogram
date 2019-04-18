@@ -13,6 +13,7 @@ namespace WpfText.Commands
         public HighFallCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "High fall tone";
         }
 
         public override void Execute(object parameter)

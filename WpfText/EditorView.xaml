@@ -16,27 +16,44 @@
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
-   <Grid>
-      <DockPanel FocusManager.FocusedElement="{Binding ElementName=AvalonEditor}">
-         <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-               <Button ToolTip="Save">
-                  <materialDesign:PackIcon Kind="ContentSave" />
-               </Button>
-               <Button ToolTip="Save">
-                  <materialDesign:PackIcon Kind="Undo" />
-               </Button>
-               <Button ToolTip="Save">
-                  <materialDesign:PackIcon Kind="Redo" />
-               </Button>
-            </ToolBar>
-         </ToolBarTray>
-
-         <avalon:TextEditor x:Name="AvalonEditor" ShowLineNumbers="True" DockPanel.Dock="Top" Height="auto">
+   <Grid FocusManager.FocusedElement="{Binding ElementName=AvalonEditor}">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="50"/>
+         <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <ToolBarTray Grid.Row="0">
+         <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+            <Button ToolTip="Save">
+               <materialDesign:PackIcon Kind="ContentSave" />
+            </Button>
+            <Button ToolTip="Save">
+               <materialDesign:PackIcon Kind="Undo" />
+            </Button>
+            <Button ToolTip="Save">
+               <materialDesign:PackIcon Kind="Redo" />
+            </Button>
+         </ToolBar>
+      </ToolBarTray>
+      <Grid Grid.Row="1">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition />
+         </Grid.RowDefinitions>
+         <avalon:TextEditor x:Name="AvalonEditor" ShowLineNumbers="True" Grid.Row="0">
 
          </avalon:TextEditor>
-      </DockPanel>
-     
+        
+         <GridSplitter Grid.Row="1"
+              Background="Black" 
+              ShowsPreview="True"
+              ResizeDirection="Rows"
+              Width="Auto" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              />
+         <local:RenderView x:Name="View" DockPanel.Dock="Top" Grid.Row="2"></local:RenderView >
+      </Grid>
+      
    </Grid>
    
 </Window>

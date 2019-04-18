@@ -5,5 +5,6 @@ namespace WpfText.Commands
     public interface IToolCommand : ICommand
     {
         string Name { get; }
+        object Tooltip { get; }
     }
 }

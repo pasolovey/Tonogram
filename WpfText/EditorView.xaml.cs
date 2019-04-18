@@ -1,8 +1,14 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Highlighting;
+using RenderTest.Model;
 using System;
 using System.Collections;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml;
+using WpfText.Commands;
+using WpfText.Model;
 
 namespace WpfText
 {
@@ -11,17 +17,30 @@ namespace WpfText
         public static RoutedCommand MyCommand = new RoutedCommand();
         ShortcutKeyBindings keyBindings = new ShortcutKeyBindings();
         PopupToolController popupToolController;
+        
 
         public EditorView()
         {
             InitializeComponent();
             popupToolController = new PopupToolController(new CommandSource(AvalonEditor));
+            IHighlightingDefinition customHighlighting;
+            using (Stream s = typeof(EditorView).Assembly.GetManifestResourceStream("WpfText.CustomHighlighting.xshd"))
+            {
+                if (s == null)
+                    throw new InvalidOperationException("Could not find embedded resource");
+                using (XmlReader reader = new XmlTextReader(s))
+                {
+                    customHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.
+                        HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                    AvalonEditor.SyntaxHighlighting = customHighlighting;
+                }
+            }
+            View.SetModel(new ModelSource(AvalonEditor));
 
 
             //CommandBinding cb = new CommandBinding(MyCommand, MyCommandExecute, MyCommandCanExecute);
             //AvalonEditor.TextArea.CommandBindings.Add(cb);
-
-            //keyBindings.AddShortCut(new KeyGesture(Key.D1, ModifierKeys.Control), new HighFallCommand(AvalonEditor));
+            keyBindings.AddShortCut(new KeyGesture(Key.L|Key.F, ModifierKeys.Control), new HighFallCommand(AvalonEditor));
             //keyBindings.AddShortCut(new KeyGesture(Key.D2, ModifierKeys.Control), new MidFallCommand(AvalonEditor));
             //keyBindings.AddShortCut(new KeyGesture(Key.D3, ModifierKeys.Control), new LowFallCommand(AvalonEditor));
             //keyBindings.AddShortCut(new KeyGesture(Key.D4, ModifierKeys.Control), new StressCommand(AvalonEditor));

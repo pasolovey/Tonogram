@@ -13,6 +13,7 @@ namespace WpfText.Commands
         public StressCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Stress tone";
         }
 
         public override void Execute(object parameter)

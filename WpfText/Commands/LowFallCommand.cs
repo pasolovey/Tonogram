@@ -13,6 +13,7 @@ namespace WpfText.Commands
         public LowFallCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Low fall tone";
         }
 
         public override void Execute(object parameter)
@@ -33,6 +34,7 @@ namespace WpfText.Commands
         public LowRiseCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Low rise tone";
         }
 
         public override void Execute(object parameter)
@@ -51,6 +53,7 @@ namespace WpfText.Commands
         public MidRiseCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Middle rise tone";
         }
 
         public override void Execute(object parameter)
@@ -69,6 +72,7 @@ namespace WpfText.Commands
         public HighRiseCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "High rise tone";
         }
 
         public override void Execute(object parameter)
@@ -88,6 +92,7 @@ namespace WpfText.Commands
         public HighLevelCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "High level tone";
         }
 
         public override void Execute(object parameter)
@@ -106,6 +111,7 @@ namespace WpfText.Commands
         public LowLevelCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Low level tone";
         }
 
         public override void Execute(object parameter)
@@ -124,6 +130,7 @@ namespace WpfText.Commands
         public MidLevelCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Middle level tone";
         }
 
         public override void Execute(object parameter)
@@ -143,6 +150,7 @@ namespace WpfText.Commands
         public FallRiseCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Fall rise tone";
         }
 
         public override void Execute(object parameter)
@@ -161,6 +169,7 @@ namespace WpfText.Commands
         public RiseFallCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Rise fall tone";
         }
 
         public override void Execute(object parameter)
@@ -180,6 +189,7 @@ namespace WpfText.Commands
         public SpecialRiseCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Special rise tone";
         }
 
         public override void Execute(object parameter)
@@ -262,6 +272,41 @@ namespace WpfText.Commands
         }
     }
 
+    public class ShortPauseCommand : BaseToolCommand
+    {
+        public TextEditor Avalon { get; set; }
+
+        public override string Name => "|";
+
+        public ShortPauseCommand(TextEditor text)
+        {
+            Avalon = text;
+        }
+
+        public override void Execute(object parameter)
+        {
+            var offset = Avalon.Document.GetOffset(Avalon.TextArea.Caret.Location);
+            Avalon.Document.Insert(offset, "|");
+        }
+    }
+
+    public class PauseCommand : BaseToolCommand
+    {
+        public TextEditor Avalon { get; set; }
+
+        public override string Name => "||";
+
+        public PauseCommand(TextEditor text)
+        {
+            Avalon = text;
+        }
+
+        public override void Execute(object parameter)
+        {
+            var offset = Avalon.Document.GetOffset(Avalon.TextArea.Caret.Location);
+            Avalon.Document.Insert(offset, "||");
+        }
+    }
     public class BreathCommand : BaseToolCommand
     {
         public TextEditor Avalon { get; set; }

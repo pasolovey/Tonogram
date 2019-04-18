@@ -17,6 +17,7 @@ namespace WpfText.Commands
         public NonStressCommand(TextEditor text)
         {
             Avalon = text;
+            tooltip = "Non stress tone";
         }
 
         public override void Execute(object parameter)
