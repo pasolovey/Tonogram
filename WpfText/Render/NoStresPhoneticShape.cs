@@ -16,12 +16,13 @@ namespace WpfText.Render
 
         protected override void DrawFigure(DrawingContext dc)
         {
-            var verticalSize = defaultHeight - textAreaMaxHeight;
+            var rect = GetShapeRect();
+            var verticalSize = rect.Height;
             var levelStep = verticalSize / (LevelsCount - 1);
             var lvl = Math.Max(StartLevel - 1, 0);
-            var point = new Point(width / 2, textAreaMaxHeight + ((LevelsCount - 1) - lvl) * levelStep);
+            var point = new Point(width / 2, rect.Top + ((LevelsCount - 1) - lvl) * levelStep);
             dc.PushTransform(new TranslateTransform(point.X, point.Y));
-            dc.DrawEllipse(Brushes.Black, null, new Point(0, 0), 4, 4);
+            dc.DrawEllipse(OpacityBlackBrush, null, new Point(0, 0), 3, 3);
             dc.Pop();
         }
     }

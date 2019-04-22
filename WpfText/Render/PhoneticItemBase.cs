@@ -20,7 +20,8 @@ namespace RenderTest.Render
 
         public static Pen DefaultPen = new Pen(Brushes.Black, 1);
         public static Pen BlackPenBold = new Pen(Brushes.Black, 3);
-        public static Pen OpacityDefaultPen = new Pen(new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)), 1);
+        public static Brush OpacityBlackBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0));
+        public static Pen OpacityDefaultPen = new Pen(OpacityBlackBrush, 1);
         public static Pen HighlightPen = new Pen(Brushes.Red, 1);
 
         private string text;
@@ -47,7 +48,10 @@ namespace RenderTest.Render
         {
             this.text = text;
             if (!string.IsNullOrEmpty(text))
+            {
                 UpdateFormatedText();
+                ClculateBorders();
+            }
         }
 
         public void OnDraw(DrawingContext dc, Point position)
@@ -79,69 +83,6 @@ namespace RenderTest.Render
         {
             height = defaultHeight;
             width = Math.Max(TextWidth, minWidth) + textPaddingHor;
-        }
-    }
-
-    public class PhoneticItemLevels : PhoneticItemBase
-    {
-        private readonly int levelsCount = 9;
-
-        public int LevelsCount => levelsCount;
-
-        public PhoneticItemLevels(string text)
-        {
-            SetText(text);
-        }
-
-        protected override void OnDrawInternal(DrawingContext dc)
-        {
-            DrawLevels(dc, new Point(0, textAreaMaxHeight));
-            if (FormattedText != null)
-                DrawTextArea(dc);
-        }
-
-        void DrawTextArea(DrawingContext dc)
-        {
-            dc.DrawText(FormattedText, new Point(width / 2 - TextWidth / 2, textAreaMaxHeight / 2 - TextHeight / 2));
-        }
-
-        void DrawLevels(DrawingContext dc, Point position)
-        {
-            var verticalSize = defaultHeight - textAreaMaxHeight;
-            var levelStep = verticalSize / (levelsCount - 1);
-            for (int i = 0; i < levelsCount; i++)
-            {
-                var y = position.Y + i * levelStep;
-                if (!(i == 0 || i == levelsCount - 1))
-                {
-                    continue;
-                    dc.DrawLine(OpacityDefaultPen, new Point(position.X, y), new Point(position.X + width, y));
-                }
-                else
-                    dc.DrawLine(DefaultPen, new Point(position.X, y), new Point(position.X + width, y));
-            }
-        }
-    }
-
-    public class PhoneticWithShape : PhoneticItemLevels
-    {
-        public int StartLevel { get; set; }
-
-        public int StopLevel { get; set; }
-
-        public PhoneticWithShape(string text)
-            : base(text)
-        {
-        }
-
-        protected override void OnDrawInternal(DrawingContext dc)
-        {
-            base.OnDrawInternal(dc);
-            DrawFigure(dc);
-        }
-
-        protected virtual void DrawFigure(DrawingContext dc)
-        {
         }
     }
 }

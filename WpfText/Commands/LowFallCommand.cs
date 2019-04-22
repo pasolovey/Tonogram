@@ -307,6 +307,7 @@ namespace WpfText.Commands
             Avalon.Document.Insert(offset, "||");
         }
     }
+
     public class BreathCommand : BaseToolCommand
     {
         public TextEditor Avalon { get; set; }

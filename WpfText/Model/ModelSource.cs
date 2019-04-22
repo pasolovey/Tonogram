@@ -106,6 +106,22 @@ namespace WpfText.Model
             {
                 item = new ModelItem() { Text = command.text, Type = 3, Start = 5, End = 9 };
             }
+            if (res == "|")
+            {
+                item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 1 };
+            }
+            if (res == "||")
+            {
+                item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 2 };
+            }
+            if (res == "|||")
+            {
+                item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 3 };
+            }
+            if (res == "^")
+            {
+                item = new ModelItem() { Text = command.text, Type = 5 };
+            }
 
             return item;
         }

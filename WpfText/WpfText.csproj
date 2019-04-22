@@ -146,9 +146,14 @@
     <Compile Include="RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Render\BreathPhoneticShape.cs" />
     <Compile Include="Render\IRenderable.cs" />
+    <Compile Include="Render\MonotonicBezierPhoneticShape.cs" />
     <Compile Include="Render\NoStresPhoneticShape.cs" />
-    <Compile Include="Render\PhoneticItem.cs" />
+    <Compile Include="Render\PausePhoneticShape.cs" />
+    <Compile Include="Render\PhoneticItemBase.cs" />
+    <Compile Include="Render\PhoneticItemLevels.cs" />
+    <Compile Include="Render\PhoneticWithShape.cs" />
     <Compile Include="Render\StresPhoneticShape.cs" />
     <Compile Include="Trash\TestPropertyView.xaml.cs">
       <DependentUpon>TestPropertyView.xaml</DependentUpon>

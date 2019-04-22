@@ -38,6 +38,8 @@ namespace WpfText
             yield return new LowFallIncompletCommand(avalon);
 
             yield return new SlidingToneCommand(avalon);
+            yield return new ShortPauseCommand(avalon);
+            yield return new PauseCommand(avalon);
             yield return new LongPauseCommand(avalon);
             yield return new BreathCommand(avalon);
         }
