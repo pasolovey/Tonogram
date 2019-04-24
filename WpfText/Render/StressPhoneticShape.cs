@@ -9,9 +9,9 @@ using System.Windows.Media;
 
 namespace WpfText.Render
 {
-    class StresPhoneticShape : PhoneticWithShape
+    class StressPhoneticShape : PhoneticShape
     {
-        public StresPhoneticShape(string text)
+        public StressPhoneticShape(string text)
             : base(text)
         {
         }

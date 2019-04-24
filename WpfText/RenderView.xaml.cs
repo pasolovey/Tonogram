@@ -22,6 +22,11 @@ namespace WpfText
     /// </summary>
     public partial class RenderView : Canvas
     {
+        static RenderView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RenderView), new FrameworkPropertyMetadata(typeof(RenderView)));
+        }
+
         public RenderView()
         {
             InitializeComponent();
@@ -29,6 +34,7 @@ namespace WpfText
 
         private Pen DefaultPen = new Pen(Brushes.Black, 1);
         private IModelSource modelSource;
+        private IEnumerable<IRenderable> renderables;
 
 
         public void SetModel(IModelSource modelSource)
@@ -39,6 +45,9 @@ namespace WpfText
 
         private void ModelSource_ModelChanged(object sender, EventArgs e)
         {
+            var models = modelSource.Get();
+            renderables = models.Select(x => Factory.Instance.Create(x)).Where(x => x != null).ToList();
+            InvalidateMeasure();
             InvalidateVisual();
         }
 
@@ -47,9 +56,36 @@ namespace WpfText
             base.OnRender(dc);
             if (modelSource == null)
                 return;
-            var models = modelSource.Get();
-            var drawItems = models.Select(x => Factory.Instance.Create(x)).Where(x => x != null).ToList();
-            Render(dc, drawItems);
+
+            Render(dc);
+        }
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            double bottomMost = 0d;
+            double rightMost = ActualWidth;
+            if (Parent is FrameworkElement fe)
+            {
+                rightMost = fe.ActualWidth;
+            }
+
+            if (renderables == null)
+                return new Size(rightMost, bottomMost);
+            Point start = new Point(0, 0);
+            foreach (var item in renderables)
+            {
+                if (bottomMost == 0d)
+                    bottomMost += item.Height;
+                if (start.X + item.Width > ActualWidth)
+                {
+                    bottomMost += item.Height;
+                    start.X = 0;
+                    start.Y += item.Height;
+                }
+                start.X = start.X + item.Width;
+            }
+
+            return new Size(rightMost, bottomMost);
         }
 
         protected override void OnPreviewMouseRightButtonUp(MouseButtonEventArgs e)
@@ -60,8 +96,10 @@ namespace WpfText
             //doc.Close();
         }
 
-        void Render(DrawingContext dc, IEnumerable<IRenderable> renderables)
+        void Render(DrawingContext dc)
         {
+            if (renderables == null)
+                return;
             Point start = new Point(0, 0);
             foreach (var item in renderables)
             {

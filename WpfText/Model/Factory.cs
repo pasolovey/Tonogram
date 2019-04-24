@@ -20,15 +20,15 @@ namespace RenderTest.Model
             IRenderable res = null;
             if (item.Type == 1)
             {
-                res = new StresPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End };
+                res = new StressPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End };
             }
             else if (item.Type == 2)
             {
-                res = new NoStresPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End };
+                res = new NoStressPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End };
             }
             else if (item.Type == 3)
             {
-                res = new MonotonicBezierPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End };
+                res = new TwoPointBezierPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End };
             }
 
             else if (item.Type == 4)
@@ -43,6 +43,17 @@ namespace RenderTest.Model
             else if(item.Type == 5)
             {
                 res = new BreathPhoneticShape(item.Text);
+            }
+            else if (item.Type == 6)
+            {
+                if (item is IMidPoint mp)
+                {
+                    res = new ThreePointBezierPhoneticShape(item.Text) { StartLevel = item.Start, StopLevel = item.End, MidLevel = mp.Level};
+                }
+            }
+            else if (item.Type == 7)
+            {
+                res = new SpecialRisePhoneticShape(item.Text);
             }
 
             return res;

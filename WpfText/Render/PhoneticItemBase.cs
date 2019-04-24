@@ -11,6 +11,12 @@ namespace RenderTest.Render
 {
     public abstract class PhoneticItemBase : IRenderable
     {
+        public static Pen DefaultPen = new Pen(Brushes.Black, 1);
+        public static Pen BlackPenBold = new Pen(Brushes.Black, 3);
+        public static Brush OpacityBlackBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0));
+        public static Pen OpacityDefaultPen = new Pen(OpacityBlackBrush, 1);
+        public static Pen HighlightPen = new Pen(Brushes.Red, 1);
+
         protected double width = 0;
         protected double height = 0;
         protected double minWidth = 30;
@@ -18,18 +24,8 @@ namespace RenderTest.Render
         protected double textPaddingVer = 5;
         protected double textAreaMaxHeight = 20;
 
-        public static Pen DefaultPen = new Pen(Brushes.Black, 1);
-        public static Pen BlackPenBold = new Pen(Brushes.Black, 3);
-        public static Brush OpacityBlackBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0));
-        public static Pen OpacityDefaultPen = new Pen(OpacityBlackBrush, 1);
-        public static Pen HighlightPen = new Pen(Brushes.Red, 1);
-
         private string text;
-        private FormattedText formattedText;
         private int fontSize = 12;
-        private double textHeight;
-        private double textWidth;
-
         protected readonly double defaultHeight = 100;
 
         public PhoneticItemBase()
@@ -38,11 +34,14 @@ namespace RenderTest.Render
         }
 
         public double Width => width;
+
         public double Height => height;
 
-        public double TextHeight { get => textHeight; set => textHeight = value; }
-        public double TextWidth { get => textWidth; set => textWidth = value; }
-        public FormattedText FormattedText { get => formattedText; private set => formattedText = value; }
+        public double TextHeight { get; set; }
+
+        public double TextWidth { get; set; }
+
+        public FormattedText FormattedText { get; private set; }
 
         public void SetText(string text)
         {
@@ -66,6 +65,17 @@ namespace RenderTest.Render
 
         }
 
+        protected virtual void ClculateBorders()
+        {
+            height = defaultHeight;
+            width = Math.Max(TextWidth, MinWidth()) + textPaddingHor;
+        }
+
+        protected virtual double MinWidth()
+        {
+            return minWidth;
+        }
+
         private void UpdateFormatedText()
         {
             FormattedText = new FormattedText(text,
@@ -76,12 +86,6 @@ namespace RenderTest.Render
                 Brushes.Black);
             TextWidth = FormattedText.Width;
             TextHeight = FormattedText.Height;
-            width = Math.Max(TextWidth, minWidth) + textPaddingHor;
-        }
-
-        protected virtual void ClculateBorders()
-        {
-            height = defaultHeight;
             width = Math.Max(TextWidth, minWidth) + textPaddingHor;
         }
     }

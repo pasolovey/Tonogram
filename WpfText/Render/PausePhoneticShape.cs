@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace WpfText.Render
 {
-    class PausePhoneticShape : PhoneticWithShape
+    class PausePhoneticShape : PhoneticShape
     {
         public PausePhoneticShape(string text)
             : base(text)

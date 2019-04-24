@@ -122,6 +122,22 @@ namespace WpfText.Model
             {
                 item = new ModelItem() { Text = command.text, Type = 5 };
             }
+            if (res == "fr")
+            {
+                item = new ThreePointItem() { Text = command.text, Type = 6 , Start = 9, Level = 1, End = 5 };
+            }
+            if (res == "mfr")
+            {
+                item = new ThreePointItem() { Text = command.text, Type = 6, Start = 5, Level = 1, End = 9 };
+            }
+            if (res == "rf")
+            {
+                item = new ThreePointItem() { Text = command.text, Type = 6, Start = 5, Level = 9, End = 1 };
+            }
+            if (res == "sr")
+            {
+                item = new ThreePointItem() { Text = command.text, Type = 7, End = 9};
+            }
 
             return item;
         }

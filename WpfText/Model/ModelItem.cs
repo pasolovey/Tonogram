@@ -13,6 +13,16 @@
         int PauseCount { get; set; }
     }
 
+    public interface IMidPoint
+    {
+        int Level { get; set; }
+    }
+
+    public class ThreePointItem : ModelItem, IMidPoint
+    {
+        public int Level { get; set; }
+    }
+
 
     public class PausableItem : ModelItem, IPausable
     {

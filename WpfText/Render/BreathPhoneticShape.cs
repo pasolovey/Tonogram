@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace WpfText.Render
 {
-    class BreathPhoneticShape : PhoneticWithShape
+    class BreathPhoneticShape : PhoneticShape
     {
         public BreathPhoneticShape(string text)
             : base(text)

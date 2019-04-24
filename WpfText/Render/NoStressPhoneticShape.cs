@@ -5,14 +5,14 @@ using System.Windows.Media;
 
 namespace WpfText.Render
 {
-    class NoStresPhoneticShape : PhoneticWithShape
+    class NoStressPhoneticShape : PhoneticShape
     {
-        public NoStresPhoneticShape(string text)
+        public NoStressPhoneticShape(string text)
             : base(text)
         {
         }
 
-        public PhoneticWithShape Prev { get; set; }
+        public PhoneticShape Prev { get; set; }
 
         protected override void DrawFigure(DrawingContext dc)
         {

@@ -39,9 +39,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition />
          </Grid.RowDefinitions>
-         <avalon:TextEditor x:Name="AvalonEditor" ShowLineNumbers="True" Grid.Row="0">
+         <avalon:TextEditor x:Name="AvalonEditor" ShowLineNumbers="True" Grid.Row="0"
+                            Margin="10">
 
          </avalon:TextEditor>
         
@@ -51,7 +51,10 @@
               ResizeDirection="Rows"
               Width="Auto" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
               />
-         <local:RenderView x:Name="View" DockPanel.Dock="Top" Grid.Row="2"></local:RenderView >
+         <ScrollViewer Margin="10" DockPanel.Dock="Bottom" Grid.Row="2">
+            <local:RenderView x:Name="View"></local:RenderView >
+         </ScrollViewer>
+         
       </Grid>
       
    </Grid>

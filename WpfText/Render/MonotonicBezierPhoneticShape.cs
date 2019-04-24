@@ -5,9 +5,9 @@ using System.Windows.Media;
 
 namespace WpfText.Render
 {
-    class MonotonicBezierPhoneticShape : PhoneticWithShape
+    class TwoPointBezierPhoneticShape : PhoneticShape
     {
-        public MonotonicBezierPhoneticShape(string text)
+        public TwoPointBezierPhoneticShape(string text)
             : base(text)
         {
         }
