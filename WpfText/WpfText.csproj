@@ -85,6 +85,12 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp-WPF">
+      <HintPath>..\lib\PdfSharp-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Xps">
+      <HintPath>..\lib\PdfSharp.Xps.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -120,7 +126,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Colorizers\LineColorizer.cs" />
-    <Compile Include="CommandSource.cs" />
+    <Compile Include="Commands\CommandSource.cs" />
     <Compile Include="Commands\BaseToolCommand.cs" />
     <Compile Include="Commands\HighFallCommand.cs" />
     <Compile Include="Commands\IToolCommand.cs" />
@@ -131,19 +137,27 @@
     <Compile Include="Components\CommandWindow.xaml.cs">
       <DependentUpon>CommandWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditorView.xaml.cs">
+    <Compile Include="Pagination\Document.cs" />
+    <Compile Include="Pagination\Paginator.cs" />
+    <Compile Include="Pagination\Page.cs" />
+    <Compile Include="View\EditorView.xaml.cs">
       <DependentUpon>EditorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditorVM.cs" />
+    <Compile Include="ViewModel\EditorVM.cs" />
     <Compile Include="Helpers\WindowActivator.cs" />
     <Compile Include="Model\Factory.cs" />
     <Compile Include="Model\IModelSource.cs" />
     <Compile Include="Model\ModelItem.cs" />
     <Compile Include="Model\ModelSource.cs" />
     <Compile Include="Model\Parser.cs" />
+    <Compile Include="Model\PausableItem.cs" />
     <Compile Include="Model\TestModelSource.cs" />
+    <Compile Include="Model\ThreePointItem.cs" />
     <Compile Include="PopupToolController.cs" />
-    <Compile Include="RenderView.xaml.cs">
+    <Compile Include="View\PageCanvas.xaml.cs">
+      <DependentUpon>PageCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Render\BreathPhoneticShape.cs" />
@@ -164,7 +178,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditorView.xaml">
+    <Page Include="View\EditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,7 +187,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Trash\MainVM.cs" />
-    <Page Include="RenderView.xaml">
+    <Page Include="View\PageCanvas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\RenderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

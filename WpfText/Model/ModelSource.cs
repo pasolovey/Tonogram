@@ -118,7 +118,7 @@ namespace WpfText.Model
             {
                 item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 3 };
             }
-            if (res == "^")
+            if (res == "/")
             {
                 item = new ModelItem() { Text = command.text, Type = 5 };
             }
@@ -136,7 +136,7 @@ namespace WpfText.Model
             }
             if (res == "sr")
             {
-                item = new ThreePointItem() { Text = command.text, Type = 7, End = 9};
+                item = new ModelItem() { Text = command.text, Type = 7, End = 9};
             }
 
             return item;

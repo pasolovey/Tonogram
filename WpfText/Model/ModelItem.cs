@@ -17,15 +17,4 @@
     {
         int Level { get; set; }
     }
-
-    public class ThreePointItem : ModelItem, IMidPoint
-    {
-        public int Level { get; set; }
-    }
-
-
-    public class PausableItem : ModelItem, IPausable
-    {
-        public int PauseCount { get; set; }
-    }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WpfText.Commands;
 
-namespace WpfText
+namespace WpfText.Commands
 {
     public class CommandSource
     {
@@ -21,27 +21,28 @@ namespace WpfText
             yield return new MidFallCommand(avalon);
             yield return new LowFallCommand(avalon);
 
-
             yield return new LowRiseCommand(avalon);
             yield return new MidRiseCommand(avalon);
             yield return new HighRiseCommand(avalon);
 
-            yield return new LowLevelCommand(avalon);
-            yield return new HighLevelCommand(avalon);
-            yield return new MidLevelCommand(avalon);
-
             yield return new FallRiseCommand(avalon);
+            yield return new MidFallRiseCommand(avalon);
             yield return new RiseFallCommand(avalon);
-
             yield return new SpecialRiseCommand(avalon);
-            yield return new HighFallIncompletCommand(avalon);
-            yield return new LowFallIncompletCommand(avalon);
 
-            yield return new SlidingToneCommand(avalon);
             yield return new ShortPauseCommand(avalon);
             yield return new PauseCommand(avalon);
             yield return new LongPauseCommand(avalon);
             yield return new BreathCommand(avalon);
+
+            //yield return new SlidingToneCommand(avalon);
+
+            //yield return new LowLevelCommand(avalon);
+            //yield return new HighLevelCommand(avalon);
+            //yield return new MidLevelCommand(avalon);
+
+            //yield return new HighFallIncompletCommand(avalon);
+            //yield return new LowFallIncompletCommand(avalon);
         }
     }
 }

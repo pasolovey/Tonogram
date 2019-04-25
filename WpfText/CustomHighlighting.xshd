@@ -20,6 +20,7 @@
 
       <Keywords foreground="Red">
          <Word>|</Word>
+         <Word>/</Word>
       </Keywords>
    </RuleSet>
 </SyntaxDefinition>

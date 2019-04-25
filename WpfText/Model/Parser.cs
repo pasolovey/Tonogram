@@ -6,7 +6,7 @@
     internal class Parser
     {
         private readonly string text;
-        private readonly List<char> comSymbols = new List<char>() { '|', '%', '*', '#', '^' };
+        private readonly List<char> comSymbols = new List<char>() { '|', '%', '*', '#', '/' };
         private readonly string[] split = new string[] { "/t", " "};
         private int curPos = 0;
 
@@ -89,7 +89,7 @@
 
         private bool IsSpecial(char value)
         {
-            return value == '*' || value == '#' || value == '%' || value == '|' || value == '^' || char.IsDigit(value); ;
+            return value == '*' || value == '#' || value == '%' || value == '|' || value == '/' || char.IsDigit(value); ;
         }
 
         private bool IsCom(char value)

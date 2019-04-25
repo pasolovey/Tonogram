@@ -14,14 +14,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Xps.Packaging;
 
-namespace WpfText
+namespace WpfText.View
 {
     /// <summary>
     /// Логика взаимодействия для RenderView.xaml
     /// </summary>
     public partial class RenderView : Canvas
     {
+        private IModelSource modelSource;
+        private IEnumerable<IRenderable> renderables;
+
         static RenderView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RenderView), new FrameworkPropertyMetadata(typeof(RenderView)));
@@ -32,31 +36,24 @@ namespace WpfText
             InitializeComponent();
         }
 
-        private Pen DefaultPen = new Pen(Brushes.Black, 1);
-        private IModelSource modelSource;
-        private IEnumerable<IRenderable> renderables;
-
-
         public void SetModel(IModelSource modelSource)
         {
             this.modelSource = modelSource;
+            renderables = modelSource.Get()?.Select(x => Factory.Instance.Create(x)).Where(x => x != null).ToList();
             this.modelSource.ModelChanged += ModelSource_ModelChanged;
         }
 
         private void ModelSource_ModelChanged(object sender, EventArgs e)
         {
-            var models = modelSource.Get();
-            renderables = models.Select(x => Factory.Instance.Create(x)).Where(x => x != null).ToList();
+            renderables = modelSource.Get()?.Select(x => Factory.Instance.Create(x)).Where(x => x != null).ToList();
             InvalidateMeasure();
             InvalidateVisual();
         }
 
         protected override void OnRender(DrawingContext dc)
         {
-            base.OnRender(dc);
             if (modelSource == null)
                 return;
-
             Render(dc);
         }
 
@@ -96,7 +93,7 @@ namespace WpfText
             //doc.Close();
         }
 
-        void Render(DrawingContext dc)
+        private void Render(DrawingContext dc)
         {
             if (renderables == null)
                 return;
