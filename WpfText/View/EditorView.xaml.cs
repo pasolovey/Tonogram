@@ -24,7 +24,7 @@ namespace WpfText.View
 {
     public partial class EditorView : Window
     {
-        //ShortcutKeyBindings keyBindings = new ShortcutKeyBindings();
+        ShortcutKeyBindings keyBindings = new ShortcutKeyBindings();
         PopupToolController popupToolController;
         System.Windows.Forms.SaveFileDialog savePdfFileDialog;
         System.Windows.Forms.OpenFileDialog openFileDialog;
@@ -41,18 +41,8 @@ namespace WpfText.View
             AvalonEditor.TextArea.PreviewKeyDown += TextArea_KeyDown;
             popupToolController = new PopupToolController(new CommandSource(AvalonEditor));
 
-            Application.Current.Exit += Current_Exit;
-        }
-
-        private void Current_Exit(object sender, ExitEventArgs e)
-        {
-            if (!AvalonEditor.Document.UndoStack.IsOriginalFile || (string.IsNullOrEmpty(AvalonEditor.Document.FileName) && AvalonEditor.Document.TextLength > 0))
-            {
-                if (MessageBox.Show(this, "Изменения не сохранены. Сохранить?", "Сохранение", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
-                {
-                    Save();
-                }
-            }
+            keyBindings.AddShortCut(new KeyGesture(Key.S, ModifierKeys.Control), new LambdsCommand(() => Save()));
+            AvalonEditor.TextArea.InputBindings.AddRange(keyBindings.GetKeyBindings());
         }
 
         private void LoadAvalonHighlightTemplateFromAssembly(string templateFilename)
@@ -129,9 +119,9 @@ namespace WpfText.View
                 var popupPosition = AvalonEditor.TextArea.TextView.GetVisualPosition(
                     AvalonEditor.TextArea.Caret.Position,
                     ICSharpCode.AvalonEdit.Rendering.VisualYPosition.LineMiddle);
-                
+
+                popupPosition.Y -= AvalonEditor.VerticalOffset;
                 var screenPoint = AvalonEditor.PointToScreen(popupPosition);
-                
                 popupToolController.Show(this, screenPoint);
             }
         }
@@ -358,6 +348,33 @@ namespace WpfText.View
         private void ImportFileBtn_Click(object sender, RoutedEventArgs e)
         {
             Load();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!AvalonEditor.Document.UndoStack.IsOriginalFile || (string.IsNullOrEmpty(AvalonEditor.Document.FileName) && AvalonEditor.Document.TextLength > 0))
+            {
+                if (MessageBox.Show(this, "Изменения не сохранены. Сохранить?", "Сохранение", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+                {
+                    Save();
+                }
+            }
+        }
+
+        private void UndoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (AvalonEditor.CanUndo)
+            {
+                AvalonEditor.Undo();
+            }
+        }
+
+        private void RedoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (AvalonEditor.CanRedo)
+            {
+                AvalonEditor.Redo();
+            }
         }
     }
 }
