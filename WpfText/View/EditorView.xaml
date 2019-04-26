@@ -26,14 +26,20 @@
             <Button Name="PrintBtn" ToolTip="Print" Click="PrintBtn_Click">
                <materialDesign:PackIcon Kind="Printer" />
             </Button>
+            <Button Name="ExportPdfBtn" ToolTip="Export Pdf file" Click="ExportPdfBtn_Click">
+               <materialDesign:PackIcon Kind="FilePdf"/>
+            </Button>
             <Button ToolTip="">
                <materialDesign:PackIcon Kind="Undo" />
             </Button>
             <Button ToolTip="">
                <materialDesign:PackIcon Kind="Redo" />
             </Button>
-            <Button Name="ExportPdfBtn" ToolTip="Export Pdf file" Click="ExportPdfBtn_Click">
-               <materialDesign:PackIcon Kind="FilePdf"/>
+            <Button Name="ExportFileBtn" ToolTip="Save" Click="ExportFileBtn_Click">
+               <materialDesign:PackIcon Kind="Export" />
+            </Button>
+            <Button Name="ImportFileBtn" ToolTip="Load" Click="ImportFileBtn_Click">
+               <materialDesign:PackIcon Kind="Import" />
             </Button>
          </ToolBar>
       </ToolBarTray>

@@ -24,25 +24,41 @@ namespace WpfText.View
 {
     public partial class EditorView : Window
     {
-        ShortcutKeyBindings keyBindings = new ShortcutKeyBindings();
+        //ShortcutKeyBindings keyBindings = new ShortcutKeyBindings();
         PopupToolController popupToolController;
-        System.Windows.Forms.SaveFileDialog savePdfFileDialog = new System.Windows.Forms.SaveFileDialog();
+        System.Windows.Forms.SaveFileDialog savePdfFileDialog;
+        System.Windows.Forms.OpenFileDialog openFileDialog;
+        System.Windows.Forms.SaveFileDialog saveFileDialog;
 
         public EditorView()
         {
-            savePdfFileDialog.FileName = "phonetic";
-            savePdfFileDialog.Filter = "Pdf Files (*.pdf)|*.pdf";
-            savePdfFileDialog.DefaultExt = "pdf";
-            savePdfFileDialog.CheckFileExists = false;
-            savePdfFileDialog.AddExtension = true;
-
+            InitDialogs();
             InitializeComponent();
+            SetupModel();
+            LoadAvalonHighlightTemplateFromAssembly("WpfText.CustomHighlighting.xshd");
+
             AvalonEditor.TextArea.FontSize = 20;
             AvalonEditor.TextArea.PreviewKeyDown += TextArea_KeyDown;
-
             popupToolController = new PopupToolController(new CommandSource(AvalonEditor));
+
+            Application.Current.Exit += Current_Exit;
+        }
+
+        private void Current_Exit(object sender, ExitEventArgs e)
+        {
+            if (!AvalonEditor.Document.UndoStack.IsOriginalFile || (string.IsNullOrEmpty(AvalonEditor.Document.FileName) && AvalonEditor.Document.TextLength > 0))
+            {
+                if (MessageBox.Show(this, "Изменения не сохранены. Сохранить?", "Сохранение", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+                {
+                    Save();
+                }
+            }
+        }
+
+        private void LoadAvalonHighlightTemplateFromAssembly(string templateFilename)
+        {
             IHighlightingDefinition customHighlighting;
-            using (Stream s = typeof(EditorView).Assembly.GetManifestResourceStream("WpfText.CustomHighlighting.xshd"))
+            using (Stream s = typeof(EditorView).Assembly.GetManifestResourceStream(templateFilename))
             {
                 if (s == null)
                     throw new InvalidOperationException("Could not find embedded resource");
@@ -53,6 +69,56 @@ namespace WpfText.View
                     AvalonEditor.SyntaxHighlighting = customHighlighting;
                 }
             }
+        }
+
+        private void InitDialogs()
+        {
+            savePdfFileDialog = new System.Windows.Forms.SaveFileDialog();
+            savePdfFileDialog.FileName = "phonetic";
+            savePdfFileDialog.Filter = "Pdf Files (*.pdf)|*.pdf";
+            savePdfFileDialog.DefaultExt = "pdf";
+            savePdfFileDialog.CheckFileExists = false;
+            savePdfFileDialog.AddExtension = true;
+
+            saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.FileName = "phonetic";
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            saveFileDialog.DefaultExt = "txt";
+            saveFileDialog.CheckFileExists = false;
+            saveFileDialog.AddExtension = true;
+
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            openFileDialog.DefaultExt = "txt";
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.AddExtension = true;
+        }
+
+        public void Save()
+        {
+            var filename = AvalonEditor.Document.FileName;
+            
+            if (!File.Exists(filename))
+            {
+                if (saveFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return;
+                filename = saveFileDialog.FileName;
+            }
+            AvalonEditor.Save(filename);
+            AvalonEditor.Document.FileName = filename;
+            AvalonEditor.Document.UndoStack.MarkAsOriginalFile();
+        }
+
+        public void Load()
+        {
+            if (openFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return;
+            AvalonEditor.Load(openFileDialog.FileName);
+            AvalonEditor.Document.FileName = openFileDialog.FileName;
+        }
+
+        private void SetupModel()
+        {
             View.SetModel(new ModelSource(AvalonEditor));
         }
 
@@ -282,6 +348,16 @@ namespace WpfText.View
             //AvalonEditor.Document.UndoStack.Undo();
             //DocumentLine line = AvalonEditor.Document.GetLineByOffset(AvalonEditor.CaretOffset);
             //AvalonEditor.Select(line.Offset, line.Length);
+        }
+
+        private void ExportFileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
+        }
+
+        private void ImportFileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Load();
         }
     }
 }
