@@ -54,7 +54,6 @@ namespace WpfText.View
                     start.Y += item.Height;
                 }
                 item.OnDraw(dc, start);
-                Console.WriteLine(start.Y);
                 start.X = start.X + item.Width;
             }
         }
