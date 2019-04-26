@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using WpfText.Commands;
-using WpfText.Components;
+using WpfText.View;
 
 namespace WpfText
 {

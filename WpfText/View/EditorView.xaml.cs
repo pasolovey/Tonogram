@@ -24,7 +24,6 @@ namespace WpfText.View
 {
     public partial class EditorView : Window
     {
-        public static RoutedCommand MyCommand = new RoutedCommand();
         ShortcutKeyBindings keyBindings = new ShortcutKeyBindings();
         PopupToolController popupToolController;
         System.Windows.Forms.SaveFileDialog savePdfFileDialog = new System.Windows.Forms.SaveFileDialog();

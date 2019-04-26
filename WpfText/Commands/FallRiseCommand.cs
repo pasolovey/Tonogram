@@ -1,25 +1,23 @@
 ﻿using ICSharpCode.AvalonEdit;
-using System;
-using System.Windows.Input;
 
 namespace WpfText.Commands
 {
-    public class LowFallCommand : BaseToolCommand
+    public class FallRiseCommand : BaseToolCommand
     {
         public TextEditor Avalon { get; set; }
 
-        public override string Name => "LF";
+        public override string Name => "FR";
 
-        public LowFallCommand(TextEditor text)
+        public FallRiseCommand(TextEditor text)
         {
             Avalon = text;
-            tooltip = "Low fall tone";
+            tooltip = "Fall rise tone";
         }
 
         public override void Execute(object parameter)
         {
             var offset = Avalon.Document.GetOffset(Avalon.TextArea.Caret.Location);
-            Avalon.Document.Insert(offset, "%lf%");
+            Avalon.Document.Insert(offset, "%fr%");
         }
     }
 }

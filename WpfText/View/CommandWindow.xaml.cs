@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfText.Commands;
 
-namespace WpfText.Components
+namespace WpfText.View
 {
     /// <summary>
     /// Логика взаимодействия для CommandWindow.xaml

@@ -126,15 +126,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Colorizers\LineColorizer.cs" />
+    <Compile Include="Commands\BreathCommand.cs" />
     <Compile Include="Commands\CommandSource.cs" />
     <Compile Include="Commands\BaseToolCommand.cs" />
+    <Compile Include="Commands\FallRiseCommand.cs" />
     <Compile Include="Commands\HighFallCommand.cs" />
+    <Compile Include="Commands\HighRiseCommand.cs" />
     <Compile Include="Commands\IToolCommand.cs" />
+    <Compile Include="Commands\LongPauseCommand.cs" />
+    <Compile Include="Commands\LowRiseCommand.cs" />
+    <Compile Include="Commands\MidFallRiseCommand.cs" />
+    <Compile Include="Commands\MidRiseCommand.cs" />
     <Compile Include="Commands\NonStressCommand.cs" />
     <Compile Include="Commands\LowFallCommand.cs" />
     <Compile Include="Commands\MidFallCommand.cs" />
+    <Compile Include="Commands\OtherCommands.cs" />
+    <Compile Include="Commands\RiseFallCommand.cs" />
+    <Compile Include="Commands\ShortPauseCommand.cs" />
+    <Compile Include="Commands\SlidingToneCommand.cs" />
+    <Compile Include="Commands\SpecialRiseCommand.cs" />
     <Compile Include="Commands\StressCommand.cs" />
-    <Compile Include="Components\CommandWindow.xaml.cs">
+    <Compile Include="View\CommandWindow.xaml.cs">
       <DependentUpon>CommandWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pagination\Document.cs" />
@@ -174,7 +186,7 @@
       <DependentUpon>TestPropertyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShortcutKeyBindings.cs" />
-    <Page Include="Components\CommandWindow.xaml">
+    <Page Include="View\CommandWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,6 +246,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>

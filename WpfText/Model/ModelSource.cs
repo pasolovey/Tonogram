@@ -114,10 +114,6 @@ namespace WpfText.Model
             {
                 item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 2 };
             }
-            if (res == "|||")
-            {
-                item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 3 };
-            }
             if (res == "/")
             {
                 item = new ModelItem() { Text = command.text, Type = 5 };
