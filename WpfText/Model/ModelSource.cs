@@ -32,7 +32,7 @@ namespace WpfText.Model
             ModelItem prevItem = null;
             foreach (var cmd in commands)
             {
-                if (string.IsNullOrWhiteSpace(cmd.command))
+                if (string.IsNullOrWhiteSpace(cmd.Command))
                     continue;
                 ModelItem item = null;
                 try
@@ -54,9 +54,9 @@ namespace WpfText.Model
             return res;
         }
 
-        ModelItem Map(Parser.Com command, ModelItem prev)
+        ModelItem Map(Parser.ParserCommand command, ModelItem prev)
         {
-            var cmd = command.command;
+            var cmd = command.Command;
             int s = 0, e = 0;
             string res = "";
             (s, e, res) = TryGetLevels(cmd);
@@ -70,7 +70,7 @@ namespace WpfText.Model
                 {
                     s = e = prev.End;
                 }
-                item = new ModelItem() { Text = command.text, Type = 2, Start = s, End = e };
+                item = new ModelItem() { Text = command.Text, Type = 2, Start = s, End = e };
             }
             if (res == "#")
             {
@@ -79,60 +79,60 @@ namespace WpfText.Model
                 {
                     s = e = prev.End;
                 }
-                item = new ModelItem() { Text = command.text, Type = 1, Start = s, End = e };
+                item = new ModelItem() { Text = command.Text, Type = 1, Start = s, End = e };
             }
 
             if (res == "lf")
             {
-                item = new ModelItem() { Text = command.text, Type = 3, Start = 3, End = 1 };
+                item = new ModelItem() { Text = command.Text, Type = 3, Start = 3, End = 1 };
             }
             if (res == "mf")
             {
-                item = new ModelItem() { Text = command.text, Type = 3, Start = 5, End = 1 };
+                item = new ModelItem() { Text = command.Text, Type = 3, Start = 5, End = 1 };
             }
             if (res == "hf")
             {
-                item = new ModelItem() { Text = command.text, Type = 3, Start = 9, End = 1 };
+                item = new ModelItem() { Text = command.Text, Type = 3, Start = 9, End = 1 };
             }
             if (res == "lr")
             {
-                item = new ModelItem() { Text = command.text, Type = 3, Start = 1, End = 3 };
+                item = new ModelItem() { Text = command.Text, Type = 3, Start = 1, End = 3 };
             }
             if (res == "mr")
             {
-                item = new ModelItem() { Text = command.text, Type = 3, Start = 3, End = 5 };
+                item = new ModelItem() { Text = command.Text, Type = 3, Start = 3, End = 5 };
             }
             if (res == "hr")
             {
-                item = new ModelItem() { Text = command.text, Type = 3, Start = 5, End = 9 };
+                item = new ModelItem() { Text = command.Text, Type = 3, Start = 5, End = 9 };
             }
             if (res == "|")
             {
-                item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 1 };
+                item = new PausableItem() { Text = command.Text, Type = 4, PauseCount = 1 };
             }
             if (res == "||")
             {
-                item = new PausableItem() { Text = command.text, Type = 4, PauseCount = 2 };
+                item = new PausableItem() { Text = command.Text, Type = 4, PauseCount = 2 };
             }
             if (res == "/")
             {
-                item = new ModelItem() { Text = command.text, Type = 5 };
+                item = new ModelItem() { Text = command.Text, Type = 5 };
             }
             if (res == "fr")
             {
-                item = new ThreePointItem() { Text = command.text, Type = 6 , Start = 9, Level = 1, End = 5 };
+                item = new ThreePointItem() { Text = command.Text, Type = 6 , Start = 9, Level = 1, End = 5 };
             }
             if (res == "mfr")
             {
-                item = new ThreePointItem() { Text = command.text, Type = 6, Start = 5, Level = 1, End = 9 };
+                item = new ThreePointItem() { Text = command.Text, Type = 6, Start = 5, Level = 1, End = 9 };
             }
             if (res == "rf")
             {
-                item = new ThreePointItem() { Text = command.text, Type = 6, Start = 5, Level = 9, End = 1 };
+                item = new ThreePointItem() { Text = command.Text, Type = 6, Start = 5, Level = 9, End = 1 };
             }
             if (res == "sr")
             {
-                item = new ModelItem() { Text = command.text, Type = 7, End = 9};
+                item = new ModelItem() { Text = command.Text, Type = 7, End = 9};
             }
 
             return item;

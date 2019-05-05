@@ -15,10 +15,10 @@
             this.text = text;
         }
 
-        public List<Com> Parse()
+        public List<ParserCommand> Parse()
         {
             var words = Split();
-            List<Com> cmds = new List<Com>();
+            List<ParserCommand> cmds = new List<ParserCommand>();
             foreach (string word in words)
             {
                 string command = "";
@@ -32,7 +32,7 @@
                     {
                         command += letter;
                         if (command != "" && pos == word.Length - 1)
-                            cmds.Add(new Com() { command = UnMacro(command), text = part });
+                            cmds.Add(new ParserCommand() { Command = UnMacro(command), Text = part });
                         continue;
                     }
                     prevIsSpecial = isSpecial;
@@ -46,7 +46,7 @@
                         var t = (command == "|" || command == "||") && letter == '|';
                         if (command != "" && !t)
                         {
-                            cmds.Add(new Com() { command = UnMacro(command), text = part });
+                            cmds.Add(new ParserCommand() { Command = UnMacro(command), Text = part });
                             command = "";
                             part = "";
                         }
@@ -65,7 +65,7 @@
                     }
 
                     if (command != "" && pos == word.Length - 1)
-                        cmds.Add(new Com() { command = UnMacro(command), text = part });
+                        cmds.Add(new ParserCommand() { Command = UnMacro(command), Text = part });
                 }
             }
 
@@ -97,24 +97,6 @@
             return comSymbols.Contains(value);
         }
 
-        //private Com readNextCom(int startPos)
-        //{
-        //    Com com = null;
-        //    for (int cur = startPos; cur < text.Length; cur++)
-        //    {
-        //        if (IsCom(text[cur]))
-        //        {
-        //            if (com == null)
-        //            {
-        //                com = new Com() { begin = cur, end = cur };
-        //            }
-        //        }
-        //        if (!IsCom(text[cur + 1]))
-        //            break;
-        //    }
-        //    return com;
-        //}
-
         private string[] Split()
         {
             return Clean().Split(split, StringSplitOptions.RemoveEmptyEntries);
@@ -125,10 +107,10 @@
             return text.Replace(Environment.NewLine, " ");
         }
 
-        public class Com
+        public class ParserCommand
         {
-            public string command;
-            public string text;
+            public string Command;
+            public string Text;
         }
     }
 }
