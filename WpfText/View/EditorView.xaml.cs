@@ -29,6 +29,7 @@ namespace WpfText.View
         System.Windows.Forms.SaveFileDialog savePdfFileDialog;
         System.Windows.Forms.OpenFileDialog openFileDialog;
         System.Windows.Forms.SaveFileDialog saveFileDialog;
+        IModelSource modelSource;
 
         public EditorView()
         {
@@ -109,7 +110,8 @@ namespace WpfText.View
 
         private void SetupModel()
         {
-            View.SetModel(new ModelSource(AvalonEditor));
+            modelSource = new ModelSource(AvalonEditor);
+            View.SetModel(modelSource);
         }
 
         private void TextArea_KeyDown(object sender, KeyEventArgs e)
@@ -137,8 +139,7 @@ namespace WpfText.View
             Size pageSize = new Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight);
             Document document = new Document();
             document.PageSize = pageSize;
-            var modelSource = new ModelSource(AvalonEditor);
-            var renderables = modelSource.Get().Select(x => Factory.Instance.Create(x)).Where(x => x != null).ToList();
+            var renderables = Factory.Instance.Create(modelSource.Get());
 
             var pageCanvas = document.CreatePage().PageCanvas;
             foreach (var item in renderables)
@@ -267,16 +268,16 @@ namespace WpfText.View
             DocumentViewer viewer = new DocumentViewer();
             viewer.Document = fixedDoc;
 
-            PrintServer myPrintServer = new PrintServer();
-            PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
-            String printQueueNames = "My Print Queues:\n\n";
-            foreach (PrintQueue pq in myPrintQueues)
-            {
-                printQueueNames += "\t" + pq.Name + "\n";
-            }
+            //PrintServer myPrintServer = new PrintServer();
+            //PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+            //String printQueueNames = "My Print Queues:\n\n";
+            //foreach (PrintQueue pq in myPrintQueues)
+            //{
+            //    printQueueNames += "\t" + pq.Name + "\n";
+            //}
 
-            var q = LocalPrintServer.GetDefaultPrintQueue();
-            var ut = q.UserPrintTicket;
+            //var q = LocalPrintServer.GetDefaultPrintQueue();
+            //var ut = q.UserPrintTicket;
 
 
             wnd.Content = viewer;
@@ -376,5 +377,10 @@ namespace WpfText.View
                 AvalonEditor.Redo();
             }
         }
+    }
+
+    public interface IFixedDocumentPaginator
+    {
+        FixedDocument Paginate();
     }
 }

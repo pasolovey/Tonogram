@@ -1,5 +1,6 @@
 ﻿using RenderTest.Render;
 using System;
+using System.Collections.Generic;
 using WpfText.Render;
 
 namespace RenderTest.Model
@@ -13,6 +14,16 @@ namespace RenderTest.Model
         static Factory()
         {
             Instance = new Factory();
+        }
+
+        public IEnumerable<IRenderable> Create(IEnumerable<ModelItem> items)
+        {
+            foreach (var item in items)
+            {
+                var renderable = Create(item);
+                if (renderable != null)
+                    yield return renderable;
+            }
         }
 
         public IRenderable Create(ModelItem item)
