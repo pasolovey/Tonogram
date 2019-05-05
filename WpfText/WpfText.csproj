@@ -175,7 +175,7 @@
     </Compile>
     <Compile Include="Render\BreathPhoneticShape.cs" />
     <Compile Include="Render\IRenderable.cs" />
-    <Compile Include="Render\MonotonicBezierPhoneticShape.cs" />
+    <Compile Include="Render\TwoPointBezierPhoneticShape.cs" />
     <Compile Include="Render\NoStressPhoneticShape.cs" />
     <Compile Include="Render\PausePhoneticShape.cs" />
     <Compile Include="Render\PhoneticItemBase.cs" />
